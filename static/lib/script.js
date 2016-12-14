@@ -7,6 +7,8 @@ $(function() {
 		{
 			window.myquery = $('#qquery').val()
 			window.myrules = gatherRulesInOneString('statusrules', 4)
+			
+			runMyRoutine();
 		});
 
 
@@ -19,6 +21,10 @@ $(function() {
 		});
 })
 
+function runMyRoutine()
+{
+	$("#resultsHere").load("http://www.google.com");
+}
 
 
 function gatherRulesInOneString(formID, numberOfRules)
