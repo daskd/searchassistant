@@ -22,7 +22,6 @@ Command-line application that does a search.
 
 __author__ = 'jcgregorio@google.com (Joe Gregorio)'
 
-import pprint
 
 from googleapiclient.discovery import build
 
@@ -35,10 +34,10 @@ def main():
             developerKey="AIzaSyDMKhd-jsTLFlII7bjfxpRMDSn8_VHkRmE")
 
   res = service.cse().list(
-      q='lectures',
-      cx='017576662512468239146:omuauf_lfve',
+      q='lectures', 
+      cx='017618634140051690802:9hr8vphns8k',
     ).execute()
-  pprint.pprint(res)
+  return res
 
 if __name__ == '__main__':
-  main()
+  r = main()
