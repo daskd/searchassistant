@@ -29,3 +29,9 @@ _ReSharper*/
 [Tt]est[Rr]esult*
 *~
 *.swp
+*.pyc
+.ipynb_checkpoints/Untitled-checkpoint.ipynb
+*.json
+Untitled.ipynb
+result.pkl
+test2.html
