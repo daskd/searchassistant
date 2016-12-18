@@ -1,5 +1,5 @@
 import searchassistant as sa
 
 t = sa.Test()
-print t.getsearch('find something')
+print t.getsearchresultsashtml('find something')
 

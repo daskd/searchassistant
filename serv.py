@@ -5,13 +5,15 @@ import searchassistant
 
 class HelloWorld(object):
 
+    # Method
     test = searchassistant.Test()
 
+    # Method
     @cherrypy.expose
     def index(self):
         return "Hello world!"
 
-    
+
 
 
 cherrypy.config.update({'server.socket_port': 8084})
