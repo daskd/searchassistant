@@ -5,8 +5,10 @@ $(function() {
 
 	$('#submitquery').click(function()
 		{
-			window.myquery = $('#qquery').val()
-			window.myrules = gatherRulesInOneString('statusrules', 4)
+			$("#resultsHere").html('');
+			window.myquery = $('#querytextbox').val()
+			window.mystatus = gatherRulesInOneString('statusitems', 4)
+			window.mypreferences = gatherRulesInOneString('preferenceitems', 4)
 			
 			runMyRoutine();
 		});
@@ -15,15 +17,14 @@ $(function() {
 
 	$('#submitqueryform').submit(function(event)
 		{
-			alert('User query: ' + window.myquery);
-			alert('User additional rules: ' + window.myrules);
 			event.preventDefault();
 		});
 })
 
 function runMyRoutine()
 {
-	$("#resultsHere").load("http://www.google.com");
+	finalquery = window.myquery + ' ' + window.mystatus + ' ' + window.mypreferences;
+	$("#resultsHere").load(encodeURI("http://localhost:8084/test/getsearchresultsashtml/?query=" + finalquery));
 }
 
 

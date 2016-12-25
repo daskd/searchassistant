@@ -35,6 +35,10 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
     <i class="fa fa-search w3-xxlarge"></i>
     <p>SEARCH</p>
   </a>
+  <a class="w3-padding-large w3-hover-black" href="#results">
+    <i class="fa fa-flag-checkered w3-xxlarge"></i>
+    <p>RESULTS</p>
+  </a>
   <a class="w3-padding-large w3-hover-black" href="#rules">
     <i class="fa fa-list-ol w3-xxlarge"></i>
     <p>RULES</p>
@@ -47,6 +51,7 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
     <li class="w3-left" style="width:25% !important"><a href="#">HOME</a></li>
     <li class="w3-left" style="width:25% !important"><a href="#about">ABOUT</a></li>
     <li class="w3-left" style="width:25% !important"><a href="#search">SEARCH</a></li>
+    <li class="w3-left" style="width:25% !important"><a href="#results">RESULTS</a></li>
     <li class="w3-left" style="width:25% !important"><a href="#rules">RULES</a></li>
   </ul>
 </div>
@@ -75,7 +80,7 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
     <p>Type your search query here</p>
 
     <form target="_blank" id="submitqueryform">
-      <p><input class="w3-input w3-padding-16" type="text" placeholder="Search keywords/phrase" required="" name="Query" id="qquery" value="qqqq"></p>
+      <p><input class="w3-input w3-padding-16" type="text" placeholder="Search keywords/phrase" required="" name="Query" id="querytextbox" value="restaurants"></p>
       <p>
         <button class="w3-btn w3-light-grey w3-padding-large" type="submit" id="submitquery">
           <i class="fa fa-search"></i> Submit Query
@@ -89,6 +94,7 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
   <!-- Results Section -->
   <div class="w3-padding-64 w3-content w3-text-white" id="results">
     <h2 class="w3-text-light-grey">Results</h2>
+    <hr style="width:200px" class="w3-opacity">
 
     <p id="resultsHere">Results will be shown here</p>
 
@@ -101,16 +107,16 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
     <h2 class="w3-text-light-grey">Rules</h2>
     <hr style="width:200px" class="w3-opacity">
 
-    <p>Type your rules here (click on the rule and type)</p>
+    <p>Type your rules here (click on the line and type)</p>
     
     <!-- Grid for pricing tables -->
     <div class="w3-row-padding" style="margin:0 -16px">
       <div class="w3-half w3-margin-bottom">
-		  <form class="w3-container" id="statusrules">
+		  <form class="w3-container" id="statusitems">
 			<ul class="w3-ul w3-white w3-center w3-opacity w3-hover-opacity-off">
-			  <li class="w3-dark-grey w3-xlarge w3-padding-32">Status</li>
-			  <li class="w3-padding-16"><input class="w3-input" type="text" placeholder="rule 1" value="rule1"></li>
-			  <li class="w3-padding-16"><input class="w3-input" type="text" placeholder="rule 2" value="rule2"></li>
+			  <li class="w3-dark-grey w3-xlarge w3-padding-32">My Status</li>
+			  <li class="w3-padding-16"><input class="w3-input" type="text" placeholder="rule 1" value="Limassol"></li>
+			  <li class="w3-padding-16"><input class="w3-input" type="text" placeholder="rule 2" value="have kids"></li>
 			  <li class="w3-padding-16"><input class="w3-input" type="text" placeholder="rule 3"></li>
 			  <li class="w3-padding-16"><input class="w3-input" type="text" placeholder="rule 4"></li>
 			</ul>
@@ -118,10 +124,10 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
       </div>
 
       <div class="w3-half">
-		  <form class="w3-container">
+		  <form class="w3-container" id="preferenceitems">
 			<ul class="w3-ul w3-white w3-center w3-opacity w3-hover-opacity-off">
-			  <li class="w3-dark-grey w3-xlarge w3-padding-32">Preferences</li>
-			  <li class="w3-padding-16"><input class="w3-input" type="text" placeholder="rule 1"></li>
+			  <li class="w3-dark-grey w3-xlarge w3-padding-32">My Preferences</li>
+			  <li class="w3-padding-16"><input class="w3-input" type="text" placeholder="rule 1" value="vegeterian"></li>
 			  <li class="w3-padding-16"><input class="w3-input" type="text" placeholder="rule 2"></li>
 			  <li class="w3-padding-16"><input class="w3-input" type="text" placeholder="rule 3"></li>
 			  <li class="w3-padding-16"><input class="w3-input" type="text" placeholder="rule 4"></li>

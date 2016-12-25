@@ -9,6 +9,10 @@ class Test(object):
     @cherrypy.expose
     def index(self):
         return '<h1>Test!</h1>'
+    
+    @cherrypy.expose
+    def testmethod(self, parameter):
+        return '<h1>Parameter: {0}</h1>'.format(parameter)
 
     def gettestsearch(self):
         testquery = 'test something bro'
@@ -23,7 +27,7 @@ class Test(object):
             template = templatefile.read()
 
         # now format as html
-        html = ''
+        html = 'Keywords used for querying: <br/>{0}<br/><br/>'.format(query)
         for (title, url, description) in resultview:
             title       = unicodedata.normalize('NFKD', title).encode('ascii','ignore')
             url         = unicodedata.normalize('NFKD', url).encode('ascii','ignore')
@@ -34,11 +38,16 @@ class Test(object):
 
 
     def getgoogleresultsmocked(self, query):
+        '''
+        The Mock function .
+        Just to avoid hittimg the limit of 100 queries on google's free search.
+        '''
         return self.upkl('result.pkl')
 
 
     def getgoogleresults(self, query):
         ''' 
+        The Real Function.
         Returns dictionary of Google results, 
         by calling Google's Custom Search Engine API.
         This API is a new thing, as Google's now controlling calls to google.com
