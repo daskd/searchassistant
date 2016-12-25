@@ -14,6 +14,7 @@ class Test(object):
         testquery = 'test something bro'
         return self.getsearch(testquery)
 
+    @cherrypy.expose
     def getsearchresultsashtml(self, query):
         results = self.getgoogleresultsmocked(query)
         resultview = [(x['title'], x['link'], x['htmlSnippet']) for x in results['items']]
