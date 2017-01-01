@@ -16,7 +16,7 @@ class HelloWorld(object):
 
 
 
-cherrypy.config.update({'server.socket_port': 8084})
+cherrypy.config.update({'server.socket_port': int(os.environ.get('PORT', 8084))})
 conf = {
         '/': {
             'tools.staticdir.root': os.path.abspath(os.getcwd())
