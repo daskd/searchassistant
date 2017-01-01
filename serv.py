@@ -31,6 +31,6 @@ conf = {
         }
 
     }
-cherrypy.quickstart(HelloWorld(), '/', conf)
+cherrypy.quickstart(HelloWorld(), '/', config=conf)
 
 
