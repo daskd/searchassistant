@@ -24,7 +24,7 @@ $(function() {
 function runMyRoutine()
 {
 	finalquery = window.myquery + ' ' + window.mystatus + ' ' + window.mypreferences;
-	$("#resultsHere").load(encodeURI("http://localhost:8084/test/getsearchresultsashtml/?query=" + finalquery));
+	$("#resultsHere").load(encodeURI("/test/getsearchresultsashtml/?query=" + finalquery));
 }
 
 
