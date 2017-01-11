@@ -20,7 +20,7 @@ class Test(object):
 
     @cherrypy.expose
     def getsearchresultsashtml(self, query):
-        results = self.getgoogleresults(query)
+        results = self.getgoogleresultsmocked(query)
         resultview = [(x['title'], x['link'], x['htmlSnippet']) for x in results['items']]
 
         with open('template.html') as templatefile:
