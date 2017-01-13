@@ -14,9 +14,24 @@ class Test(object):
     def testmethod(self, parameter):
         return '<h1>Parameter: {0}</h1>'.format(parameter)
 
-    def gettestsearch(self):
-        testquery = 'test something bro'
-        return self.getsearch(testquery)
+    @cherrypy.expose
+    def setdomaintest(self, rules):
+        baseurl = 'http://cognition-srv1.ouc.ac.cy/smart_corpus_builder/ws2/api.php'
+        apikey = '54606e96f52a19e5d2f2258c637d8e98'
+        method = 'flash_set_rules'
+        url = '{base}?api={apikey}&method={method}&flash_rules={rules}'.format(base = baseurl, apikey = apikey, method = method, rules = rules) 
+        return urllib2.quote(rules)
+
+    @cherrypy.expose
+    def setdomain(self, rules):
+        baseurl = 'http://cognition-srv1.ouc.ac.cy/smart_corpus_builder/ws2/api.php'
+        apikey = '54606e96f52a19e5d2f2258c637d8e98'
+        method = 'flash_set_rules'
+        rules = urllib2.quote(rules)
+        url = '{base}?api={apikey}&method={method}&flash_rules={rules}'.format(
+                base = baseurl, apikey = apikey, method = method, rules = rules) 
+        id = urllib2.urlopen(url).read()
+        return id
 
     @cherrypy.expose
     def getsearchresultsashtml(self, query):
