@@ -26,14 +26,21 @@ $(function() {
 	// Functionality for 'Submit Rules' button
 	$('#submitrules').click(function()
 		{
-			rules = $('#rulesdefinition').val();
+			var rules = $('#rulesdefinition').val();
 			setDomain(rules);
+		});
+	
+	// Functionality for 'Submit Domain Query' button
+	$('#submitdomainquery').click(function()
+		{
+			submitDomainQuery('antarctica, funny, feathers');
 		});
 
 })
 
 function setDomain(rules)
 {
+	$('#rulesubmissionresult').val('')
 	$.ajax({
 		type: 'POST',
 		url: '/test/setdomain',
@@ -41,12 +48,40 @@ function setDomain(rules)
 			'rules': rules
 		},
 		success: function (data) {
-			//alert('Domain ID: '+data);
-			alert('worked !');
-			alert(data);
+			$('#rulesubmissionresult').text('Rules submitted successfully. New Domain ID: ' + data);
+			window.domainID = data;
 		},
 		error: function(xhr, textStatus, errorThrown) {
-	       alert('Request failed');
+	    	$('#rulesubmissionresult').text('Rule submission failed');
+		}
+		
+	 });
+	
+
+}
+
+function submitDomainQuery(query)
+{
+	domainID = window.domainID;
+	if (!domainID)
+	{
+		alert('You must first submit a set of rules');
+		return;
+	}
+
+	$('#queryubmissionresult').val('')
+	$.ajax({
+		type: 'POST',
+		url: '/test/querydomain',
+		data: {
+			'query': query,
+			'domainid': domainID
+		},
+		success: function (data) {
+			$('#queryubmissionresult').text('Query submitted successfully. Conclusion: ' + data);
+		},
+		error: function(xhr, textStatus, errorThrown) {
+			$('#queryubmissionresult').text('Query submission failed');
 		}
 		
 	 });
@@ -57,15 +92,15 @@ function setDomain(rules)
 
 function runMyRoutine()
 {
-	finalquery = window.myquery + ' ' + window.mystatus + ' ' + window.mypreferences;
+	var finalquery = window.myquery + ' ' + window.mystatus + ' ' + window.mypreferences;
 	$("#resultsHere").load(encodeURI("/test/getsearchresultsashtml/?query=" + finalquery));
 }
 
 
 function gatherRulesInOneString(formID, numberOfRules)
 {
-	statusRules = '';
-	ruleElements = getInputElementsArray(formID);
+	var statusRules = '';
+	var ruleElements = getInputElementsArray(formID);
 	for (i=0; i<numberOfRules; i++)
 		statusRules += ruleElements[i].value + ' '
 	return statusRules.trim();
@@ -74,7 +109,7 @@ function gatherRulesInOneString(formID, numberOfRules)
 
 function getInputElementsArray(formID)
 {
-	elementsPath = '#' + formID + ' input';
+	var elementsPath = '#' + formID + ' input';
 	return $(elementsPath);
 }
 
