@@ -1,6 +1,7 @@
 // On Load
 $(function() {
-	// We want the default behavior of the form, as is on the w3css template, because it shows nice validation messages.
+	// The below is because we want the default behavior of the form, as is on the w3css template, 
+	// because it shows nice validation messages.
 	// But we don't want the form to function in the default way: we will be sending the query to google by our code.
 
 	// Functionality for 'Submit Query' button
@@ -8,8 +9,6 @@ $(function() {
 		{
 			$("#resultsHere").html('');
 			window.myquery = $('#querytextbox').val()
-			window.mystatus = gatherRulesInOneString('statusitems', 4)
-			window.mypreferences = gatherRulesInOneString('preferenceitems', 4)
 			
 			runMyRoutine();
 		});
@@ -79,7 +78,7 @@ function submitDomainQuery(query)
 			'domainid': domainID
 		},
 		success: function (data) {
-			$('#queryubmissionresult').text('Query submitted successfully. Conclusion: ' + data);
+			$('#queryubmissionresult').html('Query submitted successfully. Conclusion: <br/><br/>' + data);
 		},
 		error: function(xhr, textStatus, errorThrown) {
 			$('#queryubmissionresult').text('Query submission failed');
@@ -93,6 +92,9 @@ function submitDomainQuery(query)
 
 function runMyRoutine()
 {
+	var domainquery = window.myquery;
+	submitDomainQuery(query);
+
 	var finalquery = window.myquery + ' ' + window.mystatus + ' ' + window.mypreferences;
 	$("#resultsHere").load(encodeURI("/test/getsearchresultsashtml/?query=" + finalquery));
 }

@@ -81,12 +81,20 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
     <p>Type your search query here</p>
 
     <form target="_blank" id="submitqueryform">
-      <p><input class="w3-input w3-padding-16" type="text" placeholder="Search keywords/phrase" required="" name="Query" id="querytextbox" value="restaurants"></p>
+      <p><input class="w3-input w3-padding-16" type="text" placeholder="Search keywords/phrase" required="" name="Query" id="querytextbox" value="eat, with(manolis)"></p>
       <p>
         <button class="w3-btn w3-light-grey w3-padding-large" type="submit" id="submitquery">
           <i class="fa fa-search"></i> Submit Query
         </button>
       </p>
+  	  <p>
+	  	<button class="w3-btn w3-light-grey w3-padding-large" type="button" id="submitdomainquery">
+			<i class="fa fa-search"></i> Submit Domain Query
+		</button>
+	  </p>
+	  <p>
+		  <span class="w3-padding-large" id="queryubmissionresult"></span>
+	  </p>
     </form>
   <!-- End query Section -->
   </div>
@@ -104,15 +112,17 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 			<ul class="w3-ul w3-white w3-center w3-opacity w3-hover-opacity-off">
 			  <li class="w3-dark-grey w3-xlarge w3-padding-32">Rules</li>
 			  <li class="w3-padding-16">
-			  <textarea class="w3-input" placeholder="rules" rows="10" id="rulesdefinition">
-rule1 :: penguin implies -flying.
-rule2 :: bird implies flying.
-rule3 :: penguin implies bird.
-rule4 :: feathers implies bird.
-rule5 :: antarctica, bird, funny implies penguin.
-rule6 :: flying implies wings.
-rule7 :: -flying implies -feathers.
-rule1>>rule2.
+			  <textarea class="w3-input" placeeolder="rules" rows="10" id="rulesdefinition">
+knowledgebase_foodlist001 :: eat implies is_a(wine,food).
+
+knowledgebase_food001 :: eat implies is_a(vegeterian,foodcategory).
+
+pref001 :: eat, with(manolis) implies likes(manolis,wine).
+pref002 :: eat, with(manolis) implies is_a(manolis,vegeterian).
+
+rule001 :: eat, with(X), likes(X,Y), is_a(Y,food) implies search(Y).
+rule002 :: eat, with(X), is_a(X,Y), is_a(Y,foodcategory) implies search(Y).
+
 					
 			  </textarea>
 			  </li>
@@ -124,14 +134,6 @@ rule1>>rule2.
 		    </p>
 			<p>
 			  <span class="w3-padding-large" id="rulesubmissionresult"></span>
-			</p>
-			<p>
-		  	  <button class="w3-btn w3-light-grey w3-padding-large" type="submit" id="submitdomainquery">
-			    <i class="fa fa-search"></i> Submit Domain Query
-			  </button>
-		    </p>
-			<p>
-			  <span class="w3-padding-large" id="queryubmissionresult"></span>
 			</p>
 		  </form>
       </div>
