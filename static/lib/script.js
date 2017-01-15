@@ -33,7 +33,8 @@ $(function() {
 	// Functionality for 'Submit Domain Query' button
 	$('#submitdomainquery').click(function()
 		{
-			submitDomainQuery('antarctica, funny, feathers');
+			var query = $('#querytextbox').val();
+			submitDomainQuery(query);
 		});
 
 })

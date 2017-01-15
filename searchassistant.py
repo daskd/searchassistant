@@ -38,7 +38,13 @@ class Test(object):
         print 'URL for querying domain: {0}'.format(url)
         print 'Response: {0}'.format(response)
         j = json.loads(response)
-        result = j['output'][-2].replace('>>> conclusion: ', '').replace('[', '').replace(']', '')
+
+        # extracting entities from conclusion
+        #result = j['output'][-2].replace('>>> conclusion: ', '').replace('[', '').replace(']', '')
+
+        # dbg: show conclusion line as is returned
+        result = j['output'][-2]
+
         return result
 
 
