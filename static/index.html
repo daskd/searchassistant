@@ -72,33 +72,6 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 	In the future it will filter the results before displaying them.</p>
   </div>
 
-
-  <!-- Query Section -->
-  <div class="w3-padding-64 w3-content w3-text-white" id="search">
-    <h2 class="w3-text-light-grey">Search</h2>
-    <hr style="width:200px" class="w3-opacity">
-
-    <p>Type your search query here</p>
-
-    <form target="_blank" id="submitqueryform">
-      <p><input class="w3-input w3-padding-16" type="text" placeholder="Search keywords/phrase" required="" name="Query" id="querytextbox" value="eat, with(manolis)"></p>
-      <p>
-        <button class="w3-btn w3-light-grey w3-padding-large" type="submit" id="submitquery">
-          <i class="fa fa-search"></i> Submit Query
-        </button>
-      </p>
-  	  <p>
-	  	<button class="w3-btn w3-light-grey w3-padding-large" type="button" id="submitdomainquery">
-			<i class="fa fa-search"></i> Submit Domain Query
-		</button>
-	  </p>
-	  <p>
-		  <span class="w3-padding-large" id="queryubmissionresult"></span>
-	  </p>
-    </form>
-  <!-- End query Section -->
-  </div>
-
   <!-- Rules Section -->
   <div class="w3-padding-64 w3-content w3-text-white" id="rules">
     <h2 class="w3-text-light-grey">Rules</h2>
@@ -142,6 +115,33 @@ rule002 :: eat, with(X), is_a(X,Y), is_a(Y,foodcategory) implies search(Y).
     </div>
   <!-- End Rules Section -->
   </div>
+
+  <!-- Query Section -->
+  <div class="w3-padding-64 w3-content w3-text-white" id="search">
+    <h2 class="w3-text-light-grey">Search</h2>
+    <hr style="width:200px" class="w3-opacity">
+
+    <p>Type your search query here</p>
+
+    <form target="_blank" id="submitqueryform">
+      <p><input class="w3-input w3-padding-16" type="text" placeholder="Search keywords/phrase" required="" name="Query" id="querytextbox" value="eat, with(manolis)"></p>
+      <p>
+        <button class="w3-btn w3-light-grey w3-padding-large" type="submit" id="submitquery">
+          <i class="fa fa-search"></i> Submit Query
+        </button>
+      </p>
+  	  <p>
+	  	<button class="w3-btn w3-light-grey w3-padding-large" type="button" id="submitdomainquery">
+			<i class="fa fa-search"></i> Submit Domain Query
+		</button>
+	  </p>
+	  <p>
+		  <span class="w3-padding-large" id="queryubmissionresult"></span>
+	  </p>
+    </form>
+  <!-- End query Section -->
+  </div>
+
 
   
 
