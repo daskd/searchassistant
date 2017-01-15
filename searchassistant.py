@@ -4,6 +4,7 @@ from googleapiclient.discovery import build
 import pickle
 import unicodedata
 import json
+import re
 
 # Globals
 APIKEY = '54606e96f52a19e5d2f2258c637d8e98'
@@ -45,7 +46,42 @@ class Test(object):
         # dbg: show conclusion line as is returned
         result = j['output'][-2]
 
-        return result
+        # dbg: the below is formatting just for debugging output
+        result = result.replace(',', ', ')
+
+
+        ''' 
+        the result = j['output'][-2].replace(',', ', ') above, is of the form:
+
+        conclusion: [eat, with(manolis), search(vegeterian), search(wine), is_a(manolis, vegeterian), 
+        is_a(vegeterian, foodcategory), is_a(wine, food), likes(manolis, wine)]
+        
+        '''
+        
+        # dev: return json with Submisison status, final conclusion, intermediate conclusions
+        # collecting them below:
+
+        # Status: if succeeded then result should contain the word 'conclusion'
+        status = 'SUCCESS' if bool(re.search('conclusion', result)) else 'FAIL'
+
+        # final conclusion: We expect from Flash to respond by wrapping its onclusions 
+        # into a search(<keyword>) predicate
+        searchadditions = re.findall('search\((\w+)\)', result) # this returns e.g. ['vegetarian', 'wine']
+
+        # Intermediate conclusions: Any other thing contained in the result except the initial query and the additions
+        initialquery = self.splitfirstlevel(urllib2.unquote(query).replace(' ', ''))
+        cleanresult = result.replace('>>> conclusion:', '').replace('[', '').replace(']', '').replace(' ', '')
+        allconclusions = self.splitfirstlevel(cleanresult)
+        additions = re.findall('search\(\w+\)', result.replace(' ', ''))
+
+        intermediate = list(set(allconclusions) - set(initialquery) - set(additions))
+
+        completeoutput = {}
+        completeoutput['initialquery'] = initialquery
+        completeoutput['intermediateconclusions'] = intermediate
+        completeoutput['searchadditions'] = searchadditions
+        
+        return str(completeoutput)
 
 
     @cherrypy.expose
@@ -103,6 +139,10 @@ class Test(object):
         res = service.cse().list( q=query, cx=searchengineid ).execute()
         return res
 
+
+
+    # Utility functions
+
     # unused
     def getpagecontent(self,url):
         response = urllib2.urlopen(url)
@@ -110,8 +150,28 @@ class Test(object):
         return html
 
 
-
+    # Unpickle
     def upkl(self, file):
         with open(file, 'rb') as input:
             res = pickle.load(input)
         return res
+
+    # Parse predicates
+    def splitfirstlevel(self, text, delimiter = ',', ignoreifinside = ['(', ')']):
+        itemlist = []
+        curitem = ''
+        openparenthesis = 0
+        for i in range(len(text)):
+            if text[i] == ignoreifinside[0]:
+                openparenthesis += 1
+            if text[i] == ignoreifinside[1]:
+                openparenthesis -= 1
+            if text[i] != delimiter or (text[i] == delimiter and openparenthesis != 0):
+                curitem += text[i]
+            elif openparenthesis == 0:
+                itemlist.append(curitem.strip())
+                curitem = ''
+        if curitem != '':
+            itemlist.append(curitem.strip())
+        return itemlist
+        
