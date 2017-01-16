@@ -77,6 +77,7 @@ class Test(object):
         intermediate = list(set(allconclusions) - set(initialquery) - set(additions))
 
         completeoutput = {}
+        completeoutput['status'] = status;
         completeoutput['initialquery'] = initialquery
         completeoutput['intermediateconclusions'] = intermediate
         completeoutput['searchadditions'] = searchadditions
