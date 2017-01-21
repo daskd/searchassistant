@@ -82,7 +82,13 @@ class Test(object):
         completeoutput['intermediateconclusions'] = intermediate
         completeoutput['searchadditions'] = searchadditions
         
-        return str(completeoutput)
+        outputstr = str(completeoutput)
+        # replace pythons descriptor for unicode: it adds a u before the string quote
+        outputstr = outputstr.replace('[u\'', '[\'').replace(', u\'', ', \'').replace(',u\'', ',\'')
+        # replace all single quotes with double (the string comes from a dict so all strings are enclosed by single quotes
+        outputstr = outputstr.replace('\'', '"')
+
+        return str(outputstr)
 
 
     @cherrypy.expose

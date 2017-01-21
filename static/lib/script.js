@@ -77,8 +77,14 @@ function submitDomainQuery(query)
 			'query': query,
 			'domainid': domainID
 		},
-		success: function (data) {
-			$('#queryubmissionresult').html('Query submitted successfully. Conclusion: <br/><br/>' + data);
+		success: function (datastr) {
+			data = JSON.parse(datastr);
+			var message = 'Query submission status: ' + data['status'] + '<br/>';
+			message += 'Initial query: ' + data['initialquery'].toString().replace(/,/g, ', ') + '<br/>';
+			message += 'Intermediate results: ' + data['intermediateconclusions'].toString().replace(/,/g, ', ') + '<br/>';
+			message += 'Keywords to add to search: ' + data['searchadditions'].toString().replace(/,/g, ', ') + '<br/>';
+
+			$('#queryubmissionresult').html(message);
 		},
 		error: function(xhr, textStatus, errorThrown) {
 			$('#queryubmissionresult').text('Query submission failed');
