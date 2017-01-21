@@ -67,20 +67,28 @@ class Test(object):
         # final conclusion: We expect from Flash to respond by wrapping its onclusions 
         # into a search(<keyword>) predicate
         searchadditions = re.findall('search\((\w+)\)', result) # this returns e.g. ['vegetarian', 'wine']
+        # and into a remove(<keyword>) predicate
+        searchremovals = self.extractremovals(result) # this returns e.g. ['with(manolis)']
 
         # Intermediate conclusions: Any other thing contained in the result except the initial query and the additions
         initialquery = self.splitfirstlevel(urllib2.unquote(query).replace(' ', ''))
         cleanresult = result.replace('>>> conclusion:', '').replace('[', '').replace(']', '').replace(' ', '')
         allconclusions = self.splitfirstlevel(cleanresult)
+        
+        # The below are different from the above 'searchadditions' & 'searchremovals' variables
+        # in that they look for the whole 'search(word)' string, while the above pick the 'word' inside the 'search(word)'
+        # (Could this be done more elegantly ?)
         additions = re.findall('search\(\w+\)', result.replace(' ', ''))
+        removals = re.findall('remove\(\w+\)', result.replace(' ', ''))
 
-        intermediate = list(set(allconclusions) - set(initialquery) - set(additions))
+        intermediate = list(set(allconclusions) - set(initialquery) - set(additions) - set(removals))
 
         completeoutput = {}
         completeoutput['status'] = status;
         completeoutput['initialquery'] = initialquery
         completeoutput['intermediateconclusions'] = intermediate
         completeoutput['searchadditions'] = searchadditions
+        completeoutput['searchremovals'] = searchremovals
         
         outputstr = str(completeoutput)
         # replace pythons descriptor for unicode: it adds a u before the string quote
@@ -182,3 +190,27 @@ class Test(object):
             itemlist.append(curitem.strip())
         return itemlist
         
+    def extractremovals(self, text):
+        pos = text.find('remove')
+        result = []
+        while pos > -1:
+            result.append(self.extractcontentuntilendofparenthesis(text[pos:]))
+            pos = text.find('remove', pos + 1)
+        return result
+
+    def extractcontentuntilendofparenthesis(self, text):
+        extractedtext = ''
+        openparenthesis = 0
+        for i in range(len(text)):
+            currletter = text[i]
+            if currletter == ')':
+                openparenthesis -= 1
+            if openparenthesis >= 1:
+                extractedtext += currletter
+            if currletter == '(':
+                openparenthesis += 1
+            if extractedtext != '' and openparenthesis == 0:
+              result = extractedtext
+              break
+        return result
+

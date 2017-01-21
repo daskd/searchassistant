@@ -79,10 +79,25 @@ function submitDomainQuery(query)
 		},
 		success: function (datastr) {
 			data = JSON.parse(datastr);
+
+			var initialquery = data['initialquery'].toString().replace(/, /g, ',');
+			var searchadditions = data['searchadditions'].toString().replace(/, /g, ',');
+			var searchremovals = data['searchremovals'];
+			
 			var message = 'Query submission status: ' + data['status'] + '<br/>';
-			message += 'Initial query: ' + data['initialquery'].toString().replace(/,/g, ', ') + '<br/>';
+			message += 'Initial query: ' + initialquery.replace(/,/g, ', ') + '<br/>';
 			message += 'Intermediate results: ' + data['intermediateconclusions'].toString().replace(/,/g, ', ') + '<br/>';
-			message += 'Keywords to add to search: ' + data['searchadditions'].toString().replace(/,/g, ', ') + '<br/>';
+			message += 'Keywords to add to search: ' + searchadditions.replace(/,/g, ', ') + '<br/>';
+			message += 'Keywords to remove from search: ' + searchremovals.toString().replace(/,/g, ', ') + '<br/>';
+
+			var assistantsquery = initialquery;
+			for (removal in searchremovals)
+			{
+				assistantsquery = assistantsquery.replace(searchremovals[removal], '');
+			}
+			assistantsquery += searchadditions.toString();
+
+			message += 'Assistant\'s query: ' + assistantsquery.replace(/,/g, ', ');
 
 			$('#queryubmissionresult').html(message);
 		},

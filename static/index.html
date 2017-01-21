@@ -96,6 +96,7 @@ pref002 :: eat, with(manolis) implies is_a(manolis,vegeterian).
 rule001 :: eat, with(X), likes(X,Y), is_a(Y,food) implies search(Y).
 rule002 :: eat, with(X), is_a(X,Y), is_a(Y,foodcategory) implies search(Y).
 
+search001 :: with(manolis) implies remove('with(manolis)').
 					
 			  </textarea>
 			  </li>
@@ -132,7 +133,7 @@ rule002 :: eat, with(X), is_a(X,Y), is_a(Y,foodcategory) implies search(Y).
       </p>
   	  <p>
 	  	<button class="w3-btn w3-light-grey w3-padding-large" type="button" id="submitdomainquery">
-			<i class="fa fa-search"></i> Submit Domain Query
+			<i class="fa fa-search"></i> Invoke Search Assistant
 		</button>
 	  </p>
 	  <p>
