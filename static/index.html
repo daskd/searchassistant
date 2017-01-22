@@ -68,8 +68,11 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
   <div class="w3-content w3-justify w3-text-white w3-padding-64" id="about">
     <h2 class="w3-text-light-grey">About</h2>
     <hr style="width:200px" class="w3-opacity">
-	<p>This is a search Assistant. It currently does nothing, except copying the exact results from a search engine query.<br>
-	In the future it will filter the results before displaying them.</p>
+    <p>
+        This is a search Assistant.<br/>
+    It reads your query and if it is prolog-like, with predicates that match the given rules, then it processes them using the Flash facility, and concludes on what other search keywords should be added on your search.<br/>
+    Then you can search Google with these keywords.
+	</p>
   </div>
 
   <!-- Rules Section -->
@@ -95,6 +98,7 @@ pref002 :: eat, with(manolis) implies is_a(manolis,vegeterian).
 
 rule001 :: eat, with(X), likes(X,Y), is_a(Y,food) implies search(Y).
 rule002 :: eat, with(X), is_a(X,Y), is_a(Y,foodcategory) implies search(Y).
+rule003 :: eat implies search(restaurants).
 
 search001 :: with(manolis) implies remove('with(manolis)').
 					
@@ -125,7 +129,7 @@ search001 :: with(manolis) implies remove('with(manolis)').
     <p>Type your search query here</p>
 
     <form target="_blank" id="submitqueryform">
-      <p><input class="w3-input w3-padding-16" type="text" placeholder="Search keywords/phrase" required="" name="Query" id="querytextbox" value="eat, with(manolis)"></p>
+      <p><input class="w3-input w3-padding-16" type="text" placeholder="Search keywords/phrase" required="" name="Query" id="querytextbox" value="eat with(manolis)"></p>
       <p>
         <button class="w3-btn w3-light-grey w3-padding-large" type="submit" id="submitquery">
             <i class="fa fa-search"></i> Search using above Query
