@@ -75,6 +75,9 @@ function submitDomainQuery(query)
 		return;
 	}
 
+    // Prepare query for submission to Flash: make all word spearation to be with commas
+    query = query.replace(/ /g, ',').replace(/,+/g, ',')
+
 	$('#queryubmissionresult').val('')
 	$.ajax({
 		type: 'POST',
