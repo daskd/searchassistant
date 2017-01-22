@@ -29,12 +29,18 @@ $(function() {
 			setDomain(rules);
 		});
 	
-	// Functionality for 'Submit Domain Query' button
+	// Functionality for 'submitting query to Assistant' button
 	$('#submitdomainquery').click(function()
 		{
 			var query = $('#querytextbox').val();
 			submitDomainQuery(query);
 		});
+
+    // Functionality for using Assistant's suggestion
+    $('#submitassistantsquery').click(function()
+        {
+           runAssistantsQuery(); 
+        });
 
 })
 
@@ -94,7 +100,11 @@ function submitDomainQuery(query)
 			message += 'Keywords to remove from search: ' + searchremovals + '<br/>';
 			message += 'Assistant\'s query: ' + assistantsquery;
 
+            // output results
 			$('#queryubmissionresult').html(message);
+
+            // store assistant's search suggestion
+            window.assistantsquery = assistantsquery.replace(/,/g, '');
 		},
 		error: function(xhr, textStatus, errorThrown) {
 			$('#queryubmissionresult').text('Query submission failed');
@@ -108,13 +118,20 @@ function submitDomainQuery(query)
 
 function runMyRoutine()
 {
-	var domainquery = window.myquery;
-	submitDomainQuery(query);
-
-	var finalquery = window.myquery + ' ' + window.mystatus + ' ' + window.mypreferences;
-	$("#resultsHere").load(encodeURI("/test/getsearchresultsashtml/?query=" + finalquery));
+	var query = window.myquery;
+    loadResults(query);
 }
 
+function runAssistantsQuery()
+{
+    var assistantsquery = window.assistantsquery;
+    loadResults(assistantsquery);
+}
+
+function loadResults(query)
+{
+	$("#resultsHere").load(encodeURI("/test/getsearchresultsashtml/?query=" + query));
+}
 
 function gatherRulesInOneString(formID, numberOfRules)
 {
