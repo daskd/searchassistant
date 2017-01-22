@@ -79,9 +79,11 @@ class Test(object):
         # in that they look for the whole 'search(word)' string, while the above pick the 'word' inside the 'search(word)'
         # (Could this be done more elegantly ?)
         additions = re.findall('search\(\w+\)', result.replace(' ', ''))
-        removals = re.findall('remove\(\w+\)', result.replace(' ', ''))
+        removals = ['remove(%s)' % x for x in searchremovals]
 
         intermediate = list(set(allconclusions) - set(initialquery) - set(additions) - set(removals))
+
+        assistantsquery = list((set(initialquery) | set(searchadditions)) - set(searchremovals))
 
         completeoutput = {}
         completeoutput['status'] = status;
@@ -89,7 +91,10 @@ class Test(object):
         completeoutput['intermediateconclusions'] = intermediate
         completeoutput['searchadditions'] = searchadditions
         completeoutput['searchremovals'] = searchremovals
+        completeoutput['assistantsquery'] = assistantsquery
         
+        #import ipdb;ipdb.set_trace()
+
         outputstr = str(completeoutput)
         # replace pythons descriptor for unicode: it adds a u before the string quote
         outputstr = outputstr.replace('[u\'', '[\'').replace(', u\'', ', \'').replace(',u\'', ',\'')

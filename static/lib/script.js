@@ -80,24 +80,19 @@ function submitDomainQuery(query)
 		success: function (datastr) {
 			data = JSON.parse(datastr);
 
-			var initialquery = data['initialquery'].toString().replace(/, /g, ',');
-			var searchadditions = data['searchadditions'].toString().replace(/, /g, ',');
-			var searchremovals = data['searchremovals'];
+			// data conversion and formatting
+			var initialquery = data['initialquery'].toString().replace(/,/g, ', ');
+			var intermediateconclusions = data['intermediateconclusions'].toString().replace(/,/g, ', ');
+			var searchadditions = data['searchadditions'].toString().replace(/,/g, ',');
+			var searchremovals = data['searchremovals'].toString().replace(/,/, ', ');
+			var assistantsquery = data['assistantsquery'].toString().replace(/,/g, ', ');
 			
 			var message = 'Query submission status: ' + data['status'] + '<br/>';
-			message += 'Initial query: ' + initialquery.replace(/,/g, ', ') + '<br/>';
-			message += 'Intermediate results: ' + data['intermediateconclusions'].toString().replace(/,/g, ', ') + '<br/>';
-			message += 'Keywords to add to search: ' + searchadditions.replace(/,/g, ', ') + '<br/>';
-			message += 'Keywords to remove from search: ' + searchremovals.toString().replace(/,/g, ', ') + '<br/>';
-
-			var assistantsquery = initialquery;
-			for (removal in searchremovals)
-			{
-				assistantsquery = assistantsquery.replace(searchremovals[removal], '');
-			}
-			assistantsquery += searchadditions.toString();
-
-			message += 'Assistant\'s query: ' + assistantsquery.replace(/,/g, ', ');
+			message += 'Initial query: ' + initialquery + '<br/>';
+			message += 'Intermediate results: ' + intermediateconclusions + '<br/>';
+			message += 'Keywords to add to search: ' + searchadditions + '<br/>';
+			message += 'Keywords to remove from search: ' + searchremovals + '<br/>';
+			message += 'Assistant\'s query: ' + assistantsquery;
 
 			$('#queryubmissionresult').html(message);
 		},
