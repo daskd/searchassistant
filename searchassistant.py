@@ -93,8 +93,6 @@ class Test(object):
         completeoutput['searchremovals'] = searchremovals
         completeoutput['assistantsquery'] = assistantsquery
         
-        #import ipdb;ipdb.set_trace()
-
         outputstr = str(completeoutput)
         # replace pythons descriptor for unicode: it adds a u before the string quote
         outputstr = outputstr.replace('[u\'', '[\'').replace(', u\'', ', \'').replace(',u\'', ',\'')
