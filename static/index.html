@@ -31,6 +31,10 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
     <i class="fa fa-user w3-xxlarge"></i>
     <p>ABOUT</p>
   </a>
+  <a class="w3-padding-large w3-hover-black" href="#rules">
+    <i class="fa fa-list-ol w3-xxlarge"></i>
+    <p>RULES</p>
+  </a>
   <a class="w3-padding-large w3-hover-black" href="#search">
     <i class="fa fa-search w3-xxlarge"></i>
     <p>SEARCH</p>
@@ -39,10 +43,6 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
     <i class="fa fa-flag-checkered w3-xxlarge"></i>
     <p>RESULTS</p>
   </a>
-  <a class="w3-padding-large w3-hover-black" href="#rules">
-    <i class="fa fa-list-ol w3-xxlarge"></i>
-    <p>RULES</p>
-  </a>
 </nav>
 
 <!-- Navbar on small screens (Hidden on medium and large screens) -->
@@ -50,9 +50,9 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
   <ul class="w3-navbar w3-highway-orange w3-opacity w3-hover-opacity-off w3-center w3-small">
     <li class="w3-left" style="width:25% !important"><a href="#">HOME</a></li>
     <li class="w3-left" style="width:25% !important"><a href="#about">ABOUT</a></li>
+    <li class="w3-left" style="width:25% !important"><a href="#rules">RULES</a></li>
     <li class="w3-left" style="width:25% !important"><a href="#search">SEARCH</a></li>
     <li class="w3-left" style="width:25% !important"><a href="#results">RESULTS</a></li>
-    <li class="w3-left" style="width:25% !important"><a href="#rules">RULES</a></li>
   </ul>
 </div>
 
@@ -68,8 +68,57 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
   <div class="w3-content w3-justify w3-text-white w3-padding-64" id="about">
     <h2 class="w3-text-light-grey">About</h2>
     <hr style="width:200px" class="w3-opacity">
-	<p>This is a search Assistant. It currently does nothing, except copying the exact results from a search engine query.<br>
-	In the future it will filter the results before displaying them.</p>
+    <p>
+        This is a search Assistant.<br/>
+    It reads your query and if it is prolog-like, with predicates that match the given rules, then it processes them using the Flash facility, and concludes on what other search keywords should be added on your search.<br/>
+    Then you can search Google with these keywords.
+	</p>
+  </div>
+
+  <!-- Rules Section -->
+  <div class="w3-padding-64 w3-content w3-text-white" id="rules">
+    <h2 class="w3-text-light-grey">Rules</h2>
+    <hr style="width:200px" class="w3-opacity">
+
+    
+    <!-- Grid for rules -->
+    <div class="w3-row-padding" style="margin:0 -16px">
+      <div class="w3-margin-bottom">
+		  <form class="w3-container" id="statusitems">
+			<ul class="w3-ul w3-white w3-center w3-opacity w3-hover-opacity-off">
+			  <li class="w3-dark-grey w3-xlarge w3-padding-32">Rules</li>
+			  <li class="w3-padding-16">
+			  <textarea class="w3-input" placeeolder="rules" rows="10" id="rulesdefinition">
+knowledgebase_foodlist001 :: eat implies is_a(wine,food).
+
+knowledgebase_food001 :: eat implies is_a(vegeterian,foodcategory).
+
+pref001 :: eat, with(manolis) implies likes(manolis,wine).
+pref002 :: eat, with(manolis) implies is_a(manolis,vegeterian).
+
+rule001 :: eat, with(X), likes(X,Y), is_a(Y,food) implies search(Y).
+rule002 :: eat, with(X), is_a(X,Y), is_a(Y,foodcategory) implies search(Y).
+rule003 :: eat implies search(restaurants).
+
+search001 :: with(manolis) implies remove('with(manolis)').
+					
+			  </textarea>
+			  </li>
+			</ul>
+			<p>
+		  	  <button class="w3-btn w3-light-grey w3-padding-large" type="button" id="submitrules">
+			    <i class="fa fa-search"></i> Submit Rules
+			  </button>
+		    </p>
+			<p>
+			  <div class="w3-padding-large" id="rulesubmissionresult"></div>
+			</p>
+		  </form>
+      </div>
+
+    <!-- End rules grid -->
+    </div>
+  <!-- End Rules Section -->
   </div>
 
   <!-- Query Section -->
@@ -80,15 +129,30 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
     <p>Type your search query here</p>
 
     <form target="_blank" id="submitqueryform">
-      <p><input class="w3-input w3-padding-16" type="text" placeholder="Search keywords/phrase" required="" name="Query" id="querytextbox" value="restaurants"></p>
+      <p><input class="w3-input w3-padding-16" type="text" placeholder="Search keywords/phrase" required="" name="Query" id="querytextbox" value="eat with(manolis)"></p>
       <p>
         <button class="w3-btn w3-light-grey w3-padding-large" type="submit" id="submitquery">
-          <i class="fa fa-search"></i> Submit Query
+            <i class="fa fa-search"></i> Search using above Query
         </button>
       </p>
+      <p>
+	  	<button class="w3-btn w3-light-grey w3-padding-large" type="button" id="submitdomainquery">
+            <i class="fa fa-lightbulb-o"></i> See what the Search Assistant says
+		</button>
+      </p>
+      <p>
+	  	<button class="w3-btn w3-light-grey w3-padding-large" type="button" id="submitassistantsquery">
+            <i class="fa fa-search"></i>&nbsp;<i class="fa fa-lightbulb-o"></i> Search using Assistant's Suggestion
+		</button>
+	  </p>
+	  <p>
+		  <div class="w3-padding-large" id="queryubmissionresult"></div>
+	  </p>
     </form>
   <!-- End query Section -->
   </div>
+
+
   
 
   <!-- Results Section -->
@@ -102,48 +166,17 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
   </div>
 
 
-  <!-- Rules Section -->
-  <div class="w3-padding-64 w3-content w3-text-white" id="rules">
-    <h2 class="w3-text-light-grey">Rules</h2>
-    <hr style="width:200px" class="w3-opacity">
-
-    <p>Type your rules here (click on the line and type)</p>
-    
-    <!-- Grid for pricing tables -->
-    <div class="w3-row-padding" style="margin:0 -16px">
-      <div class="w3-half w3-margin-bottom">
-		  <form class="w3-container" id="statusitems">
-			<ul class="w3-ul w3-white w3-center w3-opacity w3-hover-opacity-off">
-			  <li class="w3-dark-grey w3-xlarge w3-padding-32">My Status</li>
-			  <li class="w3-padding-16"><input class="w3-input" type="text" placeholder="rule 1" value="Limassol"></li>
-			  <li class="w3-padding-16"><input class="w3-input" type="text" placeholder="rule 2" value="have kids"></li>
-			  <li class="w3-padding-16"><input class="w3-input" type="text" placeholder="rule 3"></li>
-			  <li class="w3-padding-16"><input class="w3-input" type="text" placeholder="rule 4"></li>
-			</ul>
-		  </form>
-      </div>
-
-      <div class="w3-half">
-		  <form class="w3-container" id="preferenceitems">
-			<ul class="w3-ul w3-white w3-center w3-opacity w3-hover-opacity-off">
-			  <li class="w3-dark-grey w3-xlarge w3-padding-32">My Preferences</li>
-			  <li class="w3-padding-16"><input class="w3-input" type="text" placeholder="rule 1" value="vegeterian"></li>
-			  <li class="w3-padding-16"><input class="w3-input" type="text" placeholder="rule 2"></li>
-			  <li class="w3-padding-16"><input class="w3-input" type="text" placeholder="rule 3"></li>
-			  <li class="w3-padding-16"><input class="w3-input" type="text" placeholder="rule 4"></li>
-			</ul>
-		  </form>
-      </div>
-    <!-- End Grid/Pricing tables -->
-    </div>
-  <!-- End About Section -->
-  </div>
   
 
   
     <!-- Footer -->
   <footer class="w3-content w3-padding-64 w3-text-white w3-xlarge">
-    <p class="w3-medium">Powered by <a href="http://www.w3schools.com/w3css/default.asp" target="_blank" class="w3-hover-text-green">w3.css</a></p>
+    <p class="w3-medium">Powered by 
+        <a href="http://www.w3schools.com/w3css/default.asp" target="_blank" class="w3-hover-text-green">w3.css</a>,
+        <a href="https://jquery.com/" target="_blank" class="w3-hover-text-green">jQuery</a>,
+        <a href="http://cherrypy.org/" target="_blank" class="w3-hover-text-green">cherrypy</a>
+
+    </p>
   <!-- End footer -->
   </footer>
 

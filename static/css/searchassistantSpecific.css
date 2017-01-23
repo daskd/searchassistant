@@ -3,3 +3,7 @@ form ul.w3-ul li
 	border: 0px; 
 }
 
+form ul.w3-ul li textarea
+{
+	border: 0px;
+}	
