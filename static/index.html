@@ -99,6 +99,7 @@ pref002 :: eat, with(manolis) implies is_a(manolis,vegeterian).
 rule001 :: eat, with(X), likes(X,Y), is_a(Y,food) implies search(Y).
 rule002 :: eat, with(X), is_a(X,Y), is_a(Y,foodcategory) implies search(Y).
 rule003 :: eat implies search(restaurants).
+rule004 :: eat implies search(limassol).
 
 search001 :: with(manolis) implies remove('with(manolis)').
 					
