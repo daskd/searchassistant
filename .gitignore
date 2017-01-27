@@ -35,3 +35,7 @@ _ReSharper*/
 Untitled.ipynb
 result.pkl
 test2.html
+*.swo
+srv.out
+*.swn
+*.swm

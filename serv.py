@@ -16,8 +16,11 @@ class HelloWorld(object):
 
 
 
-cherrypy.config.update({'server.socket_port': 8084})
 conf = {
+        'global': {
+            'server.socket_host': '0.0.0.0',
+            'server.socket_port': int(os.environ.get('PORT', 8084)),
+        },
         '/': {
             'tools.staticdir.root': os.path.abspath(os.getcwd())
         },
@@ -28,6 +31,6 @@ conf = {
         }
 
     }
-cherrypy.quickstart(HelloWorld(), '/', conf)
+cherrypy.quickstart(HelloWorld(), '/', config=conf)
 
 
