@@ -33,6 +33,7 @@ _ReSharper*/
 .ipynb_checkpoints/Untitled-checkpoint.ipynb
 *.json
 Untitled.ipynb
+result.pkl
 test2.html
 *.swo
 srv.out
