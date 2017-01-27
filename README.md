@@ -1,4 +1,9 @@
 # searchassistant
 
-Project page has been created at [https://daskd.github.io/searchassistant/] (https://daskd.github.io/searchassistant/). 
-Read more at [https://help.github.com/pages] (https://help.github.com/pages)
+### Installing
+Clone/download repository.<br/>
+Then run: **pip install -r requirements.txt**
+
+### Running
+Run: **python serv.py**<br/>
+Then open your browser to **http://loclahost:8084**
